@@ -9,15 +9,16 @@ import HelloWorld from './components/HelloWorld.vue'
 
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
-
+      <button
+        class="bg-blue-400 hover:bg-blue-500 text-sm text-white font-mono font-light py-2 px-4 rounded border-2 border-blue-200 dark:bg-blue-500 dark:hover:bg-blue-600"
+      >
+        Button
+      </button>
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
-        <el-button
-          type="primary"
-          to="/"
-          style="margin-left: 1rem; padding: 0.5rem 1rem; font-size: 12px"
-          >Go to About
+        <el-button type="primary" style="margin-left: 1rem; padding: 0.5rem 1rem; font-size: 12px">
+          <router-link to="/about">跳转到页面</router-link>
         </el-button>
       </nav>
     </div>

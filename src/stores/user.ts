@@ -25,10 +25,11 @@ export const useUserStore = defineStore('user', () => {
   async function loginAction(userInfo: { username: string; password: string }) {
     try {
       const res = await login(userInfo)
+      console.log('登录响应:', res)
       if (res.token) {
         token.value = res.token
         setToken(res.token)
-        return Promise.resolve()
+        return Promise.resolve(res)
       }
       return Promise.reject(new Error(res.message || '登录失败'))
     } catch (error) {
@@ -39,13 +40,16 @@ export const useUserStore = defineStore('user', () => {
   // 获取用户信息
   async function getInfoAction() {
     try {
-      const data = await getUserInfo()
-      console.log('获取用户信息响应:', data)
-      name.value = data.username
-      avatar.value = data.avatar
-      roles.value = data.roles
-      permissions.value = data.permissions
-      return Promise.resolve(data)
+      const res = await getUserInfo()
+      console.log('获取用户信息响应:', res)
+      if (res) {
+        name.value = res.username
+        avatar.value = res.avatar
+        roles.value = res.roles
+        permissions.value = res.permissions
+        return Promise.resolve(res)
+      }
+      return Promise.reject(new Error('获取用户信息失败'))
     } catch (error) {
       return Promise.reject(error)
     }

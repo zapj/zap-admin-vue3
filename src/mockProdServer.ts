@@ -1,15 +1,12 @@
 import { createProdMockServer } from 'vite-plugin-mock/client'
 
 // 导入所有模块
-const modules = import.meta.glob('../mock/*.ts', { eager: true })
+const modules: Record<string, any> = import.meta.glob('../mock/*.ts', { eager: true })
 
-const mockModules: any[] = []
-Object.keys(modules).forEach((key) => {
-  if (key !== './mockProdServer.ts') {
-    mockModules.push((modules[key] as any).default)
-  }
-})
+const mockFiles = Object.values(modules).filter(
+  (module) => module.default && typeof module.default === 'function',
+)
 
 export function setupProdMockServer() {
-  createProdMockServer(mockModules)
+  createProdMockServer(mockFiles)
 }

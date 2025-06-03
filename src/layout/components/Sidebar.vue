@@ -3,7 +3,7 @@
     <!-- Logo -->
     <div class="logo-container">
       <router-link to="/" class="logo-link">
-        <div v-if="!isCollapse" class="logo-title">后台管理系统</div>
+        <div v-if="!isCollapse" class="logo-title">ZapAdmin UI</div>
         <div v-else class="logo-short">ZAP</div>
       </router-link>
     </div>
@@ -42,7 +42,7 @@ import SidebarItem from './SidebarItem.vue'
 const route = useRoute()
 const appStore = useAppStore()
 const permissionStore = usePermissionStore()
-
+permissionStore.generateRoutes()
 // 是否折叠
 const isCollapse = computed(() => !appStore.sidebar.opened)
 

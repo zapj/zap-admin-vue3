@@ -12,7 +12,7 @@ export function login(data: LoginForm) {
 
 /**
  * 获取用户信息
- * @returns Promise<ApiResponse<UserInfo>>
+ * @returns UserInfo
  */
 export function getUserInfo() {
   return http.get<ApiResponse<UserInfo>>('/user/info')

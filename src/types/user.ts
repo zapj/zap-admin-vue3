@@ -22,8 +22,6 @@ export interface ApiResponse<T> {
  */
 export interface LoginResponse {
   token: string
-  message?: string
-  [key: string]: any
 }
 
 /**

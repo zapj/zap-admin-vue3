@@ -16,11 +16,6 @@ const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
-// 注册mock服务
-if (import.meta.env.DEV) {
-  const { setupProdMockServer } = await import('./mockProdServer')
-  setupProdMockServer() // 确保正确调用
-}
 
 // 使用插件
 app.use(createPinia())

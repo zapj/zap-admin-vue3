@@ -10,33 +10,11 @@ const menus = [
     redirect: '/dashboard/analysis',
     meta: {
       title: '仪表盘',
-      icon: 'dashboard',
+      icon: 'menu',
       order: 1,
+      roles: ['admin', 'editor', 'user'], // 所有角色可见
+      status: 1, // 不隐藏
     },
-    children: [
-      {
-        id: 11,
-        name: 'analysis',
-        path: 'analysis',
-        component: 'dashboard/analysis/index',
-        meta: {
-          title: '分析页',
-          icon: 'chart',
-          order: 1,
-        },
-      },
-      {
-        id: 12,
-        name: 'workplace',
-        path: 'workplace',
-        component: 'dashboard/workplace/index',
-        meta: {
-          title: '工作台',
-          icon: 'desktop',
-          order: 2,
-        },
-      },
-    ],
   },
   {
     id: 2,
@@ -48,6 +26,8 @@ const menus = [
       title: '系统管理',
       icon: 'setting',
       order: 2,
+      roles: ['admin'], // 仅管理员可见
+      status: 1, // 不隐藏
     },
     children: [
       {
@@ -59,6 +39,8 @@ const menus = [
           title: '用户管理',
           icon: 'user',
           order: 1,
+          roles: ['admin'], // 仅管理员可见
+          status: 1, // 不隐藏
         },
       },
       {
@@ -70,6 +52,8 @@ const menus = [
           title: '角色管理',
           icon: 'usergroup',
           order: 2,
+          roles: ['admin'], // 仅管理员可见
+          status: 1, // 不隐藏
         },
       },
       {
@@ -81,6 +65,8 @@ const menus = [
           title: '菜单管理',
           icon: 'menu',
           order: 3,
+          roles: ['admin'], // 仅管理员可见
+          status: 1, // 不隐藏
         },
       },
     ],
@@ -93,8 +79,10 @@ const menus = [
     redirect: '/content/article',
     meta: {
       title: '内容管理',
-      icon: 'file',
+      icon: 'document',
       order: 3,
+      roles: ['admin', 'editor'], // 管理员和编辑可见
+      status: 1, // 不隐藏
     },
     children: [
       {
@@ -106,6 +94,8 @@ const menus = [
           title: '文章管理',
           icon: 'file-text',
           order: 1,
+          roles: ['admin', 'editor'], // 管理员和编辑可见
+          status: 1, // 不隐藏
         },
       },
       {
@@ -117,6 +107,8 @@ const menus = [
           title: '分类管理',
           icon: 'folder',
           order: 2,
+          roles: ['admin', 'editor'], // 管理员和编辑可见
+          status: 1, // 不隐藏
         },
       },
       {
@@ -128,6 +120,8 @@ const menus = [
           title: '标签管理',
           icon: 'tag',
           order: 3,
+          roles: ['admin', 'editor'], // 管理员和编辑可见
+          status: 1, // 不隐藏
         },
       },
     ],
@@ -138,7 +132,7 @@ const menus = [
 export default [
   // 获取菜单列表
   {
-    url: '/api/menus',
+    url: '/api/system/menus/tree',
     method: 'get',
     response: () => {
       return {
@@ -151,7 +145,7 @@ export default [
 
   // 根据角色获取菜单
   {
-    url: '/api/menus/role',
+    url: '/api/system/menus/role',
     method: 'get',
     response: ({ query }) => {
       const { role } = query

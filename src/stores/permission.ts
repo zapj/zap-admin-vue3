@@ -1,16 +1,16 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import { constantRoutes, asyncRoutes } from '@/router'
-import { useUserStore } from './user'
+import { getMenuTree } from '@/api/menu'
+import { menuTreeToRoutes } from '@/utils/menu-to-routes'
 
 /**
- * 使用meta.roles判断当前用户是否有权限
- * @param roles 用户角色列表
+ * 使用meta.roles确定当前用户是否具有权限
+ * @param roles 用户角色
  * @param route 路由
  */
 function hasPermission(roles: string[], route: RouteRecordRaw) {
-  if (route.meta && route.meta.roles) {
+  if (route.meta?.roles) {
     return roles.some((role) => (route.meta?.roles as string[]).includes(role))
   }
   return true
@@ -18,10 +18,10 @@ function hasPermission(roles: string[], route: RouteRecordRaw) {
 
 /**
  * 通过递归过滤异步路由表
- * @param routes 异步路由表
- * @param roles 用户角色列表
+ * @param routes 异步路由
+ * @param roles 用户角色
  */
-function filterAsyncRoutes(routes: RouteRecordRaw[], roles: string[]) {
+export function filterAsyncRoutes(routes: RouteRecordRaw[], roles: string[]) {
   const res: RouteRecordRaw[] = []
 
   routes.forEach((route) => {
@@ -37,65 +37,51 @@ function filterAsyncRoutes(routes: RouteRecordRaw[], roles: string[]) {
   return res
 }
 
-export const usePermissionStore = defineStore('permission', () => {
-  const routes = ref<RouteRecordRaw[]>([])
-  const addRoutes = ref<RouteRecordRaw[]>([])
-  const menus = ref<RouteRecordRaw[]>([])
+export const usePermissionStore = defineStore('permission', {
+  state: () => ({
+    routes: [] as RouteRecordRaw[],
+    addRoutes: [] as RouteRecordRaw[],
+    menus: [] as RouteRecordRaw[],
+  }),
+  actions: {
+    setRoutes(routes: RouteRecordRaw[]) {
+      this.addRoutes = routes
+      this.routes = constantRoutes.concat(routes)
+      this.menus = routes
+    },
+    async generateRoutes(roles: string[]) {
+      try {
+        // 从后端获取菜单树
+        const menuTree = await getMenuTree()
 
-  /**
-   * 生成路由
-   */
-  function generateRoutes() {
-    return new Promise<RouteRecordRaw[]>((resolve) => {
-      const userStore = useUserStore()
-      const { roles } = userStore
+        // 将菜单树转换为路由配置
+        let accessedRoutes = menuTreeToRoutes(menuTree)
 
-      let accessedRoutes
-      // 如果是管理员，直接返回所有路由
-      if (roles.includes('admin')) {
-        accessedRoutes = asyncRoutes || []
-      } else {
-        // 根据角色过滤路由
-        accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
-      }
-
-      addRoutes.value = accessedRoutes
-      routes.value = constantRoutes.concat(accessedRoutes)
-
-      // 生成菜单
-      generateMenus()
-
-      resolve(accessedRoutes)
-    })
-  }
-
-  /**
-   * 生成菜单
-   */
-  function generateMenus() {
-    // 过滤掉隐藏的路由
-    const filterHiddenRoutes = (routes: RouteRecordRaw[]): RouteRecordRaw[] => {
-      const res: RouteRecordRaw[] = []
-      routes.forEach((route) => {
-        if (!route.meta?.hidden) {
-          if (route.children) {
-            route.children = filterHiddenRoutes(route.children)
-          }
-          res.push(route)
+        // 如果不是管理员，需要根据角色过滤路由
+        if (!roles.includes('admin')) {
+          accessedRoutes = filterAsyncRoutes(accessedRoutes, roles)
         }
-      })
-      return res
-    }
 
-    // 过滤掉隐藏的路由后设置到菜单中
-    menus.value = filterHiddenRoutes(routes.value)
-  }
+        console.log('用户角色:', roles)
+        console.log('获取的菜单树:', menuTree)
+        console.log('生成的路由:', accessedRoutes)
 
-  return {
-    routes,
-    addRoutes,
-    menus,
-    generateRoutes,
-    generateMenus,
-  }
+        this.setRoutes(accessedRoutes)
+        return accessedRoutes
+      } catch (error) {
+        console.error('获取菜单失败，使用本地路由配置:', error)
+
+        // 如果获取菜单失败，回退到本地路由配置
+        let accessedRoutes
+        if (roles.includes('admin')) {
+          accessedRoutes = asyncRoutes || []
+        } else {
+          accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
+        }
+
+        this.setRoutes(accessedRoutes)
+        return accessedRoutes
+      }
+    },
+  },
 })

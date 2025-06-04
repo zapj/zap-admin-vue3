@@ -39,7 +39,11 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
       loading.value = true
       try {
         await userStore.login(loginForm)
+        // 获取用户信息（包含角色和权限）
+        await userStore.getInfoAction()
+
         ElMessage.success('登录成功')
+
         router.push({ path: '/' })
       } catch (error: any) {
         // 显示错误信息给用户

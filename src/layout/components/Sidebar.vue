@@ -42,10 +42,9 @@ import SidebarItem from './SidebarItem.vue'
 const route = useRoute()
 const appStore = useAppStore()
 const permissionStore = usePermissionStore()
-permissionStore.generateRoutes()
 // 是否折叠
 const isCollapse = computed(() => !appStore.sidebar.opened)
-
+permissionStore.generateRoutes(['admin', 'editor', 'test'])
 // 当前激活的菜单
 const activeMenu = computed(() => {
   const { meta, path } = route

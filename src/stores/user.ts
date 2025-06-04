@@ -2,7 +2,6 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { login, getUserInfo, logout as logoutApi } from '@/api/user'
 import { setToken, removeToken } from '@/utils/auth'
-import type { ApiResponse, LoginResponse } from '@/types/user'
 
 export const useUserStore = defineStore('user', () => {
   const token = ref('')
@@ -25,7 +24,6 @@ export const useUserStore = defineStore('user', () => {
   async function loginAction(userInfo: { username: string; password: string }) {
     try {
       const res = await login(userInfo)
-      console.log('登录响应:', res)
       if (res.token) {
         token.value = res.token
         setToken(res.token)
@@ -41,7 +39,6 @@ export const useUserStore = defineStore('user', () => {
   async function getInfoAction() {
     try {
       const res = await getUserInfo()
-      console.log('获取用户信息响应:', res)
       if (res) {
         name.value = res.username
         avatar.value = res.avatar

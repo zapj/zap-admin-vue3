@@ -107,7 +107,7 @@ export default [
 
   // 用户登出
   {
-    url: '/api/user/logout',
+    url: '/api/auth/logout',
     method: 'post',
     response: () => {
       return {

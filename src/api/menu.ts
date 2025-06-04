@@ -8,6 +8,10 @@ export function getMenuTree() {
   return http.get<MenuItem[]>('/system/menus/tree')
 }
 
+export function getMenuRole() {
+  return http.get<MenuItem[]>('/system/menus/role')
+}
+
 /**
  * 获取菜单详情
  * @param id 菜单ID

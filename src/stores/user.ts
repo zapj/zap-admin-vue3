@@ -31,7 +31,7 @@ export const useUserStore = defineStore('user', () => {
         setToken(res.token)
         return Promise.resolve(res)
       }
-      return Promise.reject(new Error(res.message || '登录失败'))
+      return Promise.reject(new Error('登录失败'))
     } catch (error) {
       return Promise.reject(error)
     }

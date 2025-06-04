@@ -7,15 +7,15 @@ import type { LoginForm, LoginResponse, UserInfo, ApiResponse } from '@/types/us
  * @returns Promise<ApiResponse<LoginResponse>>
  */
 export function login(data: LoginForm) {
-  return http.post<ApiResponse<LoginResponse>>('/auth/login', data)
+  return http.post<LoginResponse>('/auth/login', data)
 }
 
 /**
  * 获取用户信息
- * @returns UserInfo
+ * @returns Promise<UserInfo>
  */
 export function getUserInfo() {
-  return http.get<ApiResponse<UserInfo>>('/user/info')
+  return http.get<UserInfo>('/user/info')
 }
 
 /**

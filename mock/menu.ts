@@ -50,7 +50,7 @@ const menus = [
         component: 'system/role/index',
         meta: {
           title: '角色管理',
-          icon: 'usergroup',
+          icon: 'view',
           order: 2,
           roles: ['admin'], // 仅管理员可见
           status: 1, // 不隐藏
@@ -92,7 +92,7 @@ const menus = [
         component: 'content/article/index',
         meta: {
           title: '文章管理',
-          icon: 'file-text',
+          icon: 'document',
           order: 1,
           roles: ['admin', 'editor'], // 管理员和编辑可见
           status: 1, // 不隐藏
@@ -118,7 +118,7 @@ const menus = [
         component: 'content/tag/index',
         meta: {
           title: '标签管理',
-          icon: 'tag',
+          icon: 'star',
           order: 3,
           roles: ['admin', 'editor'], // 管理员和编辑可见
           status: 1, // 不隐藏
@@ -147,7 +147,7 @@ export default [
   {
     url: '/api/system/menus/role',
     method: 'get',
-    response: ({ query }) => {
+    response: ({ query } : Record<string, any> ) => {
       const { role } = query
 
       let accessibleMenus = []

@@ -44,7 +44,7 @@ const appStore = useAppStore()
 const permissionStore = usePermissionStore()
 // 是否折叠
 const isCollapse = computed(() => !appStore.sidebar.opened)
-permissionStore.generateRoutes(['admin', 'editor', 'test'])
+// permissionStore.generateRoutes(['admin', 'editor', 'test'])
 // 当前激活的菜单
 const activeMenu = computed(() => {
   const { meta, path } = route

@@ -11,7 +11,7 @@ const users = [
     nickname: '管理员',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     email: 'admin@example.com',
-    role: 'admin',
+    roles: 'admin',
     permissions: ['*'],
   },
   {
@@ -21,7 +21,7 @@ const users = [
     nickname: '编辑',
     avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
     email: 'editor@example.com',
-    role: 'editor',
+    roles: 'editor',
     permissions: ['dashboard', 'content:read', 'content:write'],
   },
   {
@@ -31,7 +31,7 @@ const users = [
     nickname: '普通用户',
     avatar: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
     email: 'user@example.com',
-    role: 'user',
+    roles: 'user',
     permissions: ['dashboard', 'content:read'],
   },
 ]
@@ -42,7 +42,7 @@ export default [
   {
     url: '/api/auth/login',
     method: 'post',
-    response: ({ body }) => {
+    response: ({ body } : Record<string, any>) => {
       const { username, password } = body
       const user = users.find((user) => user.username === username && user.password === password)
 
@@ -57,7 +57,7 @@ export default [
               nickname: user.nickname,
               avatar: user.avatar,
               email: user.email,
-              role: user.role,
+              roles: user.roles,
             },
           },
           message: '登录成功',
@@ -76,7 +76,7 @@ export default [
   {
     url: '/api/user/info',
     method: 'get',
-    response: ({ headers }) => {
+    response: ({ headers } : Record<string, any>) => {
       const token = headers.authorization?.replace('Bearer ', '')
       const userId = token?.split('-')[2]
       const user = users.find((user) => user.id === Number(userId))
@@ -90,7 +90,7 @@ export default [
             nickname: user.nickname,
             avatar: user.avatar,
             email: user.email,
-            role: user.role,
+            roles: user.roles,
             permissions: user.permissions,
           },
           message: '获取用户信息成功',
@@ -122,7 +122,7 @@ export default [
   {
     url: '/api/users',
     method: 'get',
-    response: ({ query }) => {
+    response: ({ query } : Record<string, any>) => {
       const { page = 1, limit = 10 } = query
       const pageNum = Number(page)
       const pageSize = Number(limit)

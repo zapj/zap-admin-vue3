@@ -53,7 +53,7 @@ export const usePermissionStore = defineStore('permission', {
       try {
         // 从后端获取菜单树
         const menuTree = await getMenuTree()
-
+        console.log('获取的菜单树:', menuTree)
         // 将菜单树转换为路由配置
         let accessedRoutes = menuTreeToRoutes(menuTree)
 

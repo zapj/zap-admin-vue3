@@ -1,6 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 import Layout from '@/layout/index.vue'
+import { useUserStore } from '@/stores/user'
+import { usePermissionStore } from '@/stores/permission'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+
+// 白名单路由
+const whiteList = ['/login']
 
 // 公共路由
 export const constantRoutes: Array<RouteRecordRaw> = [
@@ -100,5 +107,80 @@ export function resetRouter() {
   })
   ;(router as any).matcher = (newRouter as any).matcher
 }
+
+
+
+router.beforeEach(async (to, from, next) => {
+  NProgress.start()
+
+  const userStore = useUserStore()
+  const permissionStore = usePermissionStore()
+
+  // 获取token
+  const hasToken = userStore.token
+
+  if (hasToken) {
+    if (to.path === '/login') {
+      // 已登录且要跳转的页面是登录页
+      next({ path: '/' })
+      NProgress.done()
+    } else {
+      // 检查用户信息和权限菜单是否已获取
+      const hasRoles = userStore.roles && userStore.roles.length > 0
+      const hasMenus = permissionStore.routes && permissionStore.routes.length > 0
+
+      if (hasRoles && hasMenus) {
+        next()
+      } else {
+        try {
+          // 获取用户信息
+          await userStore.getInfoAction()
+          console.log('用户信息:', userStore.userInfo)
+
+          // 根据角色生成可访问路由
+          await permissionStore.generateRoutes(userStore.roles)
+
+          // 动态添加可访问路由
+          permissionStore.routes.forEach((route) => {
+            router.addRoute(route)
+          })
+
+          // 添加404页面
+          router.addRoute({
+            path: '/:pathMatch(.*)*',
+            redirect: '/404',
+            meta: { hidden: true },
+          })
+
+          // 请求带有 redirect 重定向时，登录自动重定向到该地址
+          const redirectPath = from.query.redirect || to.path
+          const redirect = decodeURIComponent(redirectPath as string)
+          const nextData = to.path === redirect ? { ...to, replace: true } : { path: redirect }
+          next(nextData)
+        } catch (error) {
+          // 移除 token 并跳转登录页
+          await userStore.resetToken()
+          next(`/login?redirect=${to.path}`)
+          NProgress.done()
+        }
+      }
+    }
+  } else {
+    // 未登录
+    if (whiteList.indexOf(to.path) !== -1) {
+      // 在免登录白名单，直接进入
+      next()
+    } else {
+      // 其他没有访问权限的页面将被重定向到登录页面
+      next(`/login?redirect=${to.path}`)
+      NProgress.done()
+    }
+  }
+})
+
+router.afterEach(() => {
+  NProgress.done()
+})
+
 
 export default router

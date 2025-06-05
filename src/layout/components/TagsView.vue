@@ -28,7 +28,7 @@
 
 <script setup lang="ts">
 import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
-import { useRoute, useRouter, RouteLocationNormalized } from 'vue-router'
+import { useRoute, useRouter, type RouteLocationNormalized } from 'vue-router'
 
 const route = useRoute()
 const router = useRouter()
@@ -56,7 +56,7 @@ const initTags = () => {
         path: route.path,
         name: route.name,
         meta: { ...route.meta },
-        title: route.meta.title,
+        title: typeof route.meta.title === 'string' ? route.meta.title : undefined,
       })
     }
   })

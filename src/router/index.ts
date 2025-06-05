@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
+
 import Layout from '@/layout/index.vue'
 import { useUserStore } from '@/stores/user'
 import { usePermissionStore } from '@/stores/permission'

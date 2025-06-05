@@ -46,7 +46,8 @@ export const usePermissionStore = defineStore('permission', {
   actions: {
     setRoutes(routes: RouteRecordRaw[]) {
       this.addRoutes = routes
-      this.routes = constantRoutes.concat(routes)
+      //constantRoutes.concat(routes)
+      this.routes = routes
       this.menus = routes
     },
     async generateRoutes(roles: string[]) {
@@ -62,15 +63,9 @@ export const usePermissionStore = defineStore('permission', {
           accessedRoutes = filterAsyncRoutes(accessedRoutes, roles)
         }
 
-        console.log('用户角色:', roles)
-        console.log('获取的菜单树:', menuTree)
-        console.log('生成的路由:', accessedRoutes)
-
         this.setRoutes(accessedRoutes)
         return accessedRoutes
       } catch (error) {
-        console.error('获取菜单失败，使用本地路由配置:', error)
-
         // 如果获取菜单失败，回退到本地路由配置
         let accessedRoutes
         if (roles.includes('admin')) {

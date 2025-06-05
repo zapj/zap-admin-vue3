@@ -33,9 +33,9 @@ const hasPermission = computed(() => {
     : [props.permission]
 
   if (props.mode === 'allOf') {
-    return requiredPermissions.every((permission) => permissions.includes(permission))
+    return requiredPermissions.every((permission) => permissions.includes(permission as string))
   } else {
-    return requiredPermissions.some((permission) => permissions.includes(permission))
+    return requiredPermissions.some((permission) => permissions.includes(permission as string))
   }
 })
 
@@ -46,9 +46,9 @@ const hasRole = computed(() => {
   const requiredRoles = Array.isArray(props.role) ? props.role : [props.role]
 
   if (props.mode === 'allOf') {
-    return requiredRoles.every((role) => roles.includes(role))
+    return requiredRoles.every((role) => roles.includes(role as string))
   } else {
-    return requiredRoles.some((role) => roles.includes(role))
+    return requiredRoles.some((role) => roles.includes(role as string))
   }
 })
 

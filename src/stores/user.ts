@@ -9,15 +9,20 @@ export const useUserStore = defineStore('user', () => {
   const avatar = ref('')
   const roles = ref<string[]>([])
   const permissions = ref<string[]>([])
-
+  const email = ref('') // 添加 email 属性
+  const phone = ref('') // 添加 phone 属性
   // 用户信息计算属性
   const userInfo = computed(() => ({
     name: name.value || '用户',
+    username: name.value || '用户', // 用 name 作为 username，提供默认值
     nickname: name.value || '用户', // 用 name 作为 nickname，提供默认值
     // 使用在线占位符图片作为默认头像
     avatar: avatar.value || 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
     roles: roles.value,
     permissions: permissions.value,
+    email: email.value || '', // 提供默认值
+    phone: phone.value || '', // 提供默认值
+    introduction: '欢迎使用我们的应用', // 提供默认介绍
   }))
 
 

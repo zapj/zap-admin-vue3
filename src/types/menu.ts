@@ -17,7 +17,7 @@ export interface MenuItem {
     affix?: boolean
   }
   children?: MenuItem[]
-  orderNum: number
+  order: number
   type: 'dir' | 'menu' | 'button' // dir: 目录, menu: 菜单, button: 按钮
   status: 0 | 1 // 0: 禁用, 1: 启用
   createTime?: string
@@ -41,7 +41,7 @@ export interface MenuForm {
     keepAlive?: boolean
     affix?: boolean
   }
-  orderNum: number
+  order: number
   type: 'dir' | 'menu' | 'button'
   status: 0 | 1
 }

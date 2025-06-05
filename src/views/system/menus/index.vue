@@ -33,7 +33,7 @@ const form = ref<MenuForm>({
     affix: false,
     roles: [],
   },
-  orderNum: 0,
+  order: 0,
   type: 'menu',
   status: 1,
 })
@@ -84,7 +84,7 @@ const handleEdit = (row: MenuItem) => {
     component: row.component,
     redirect: row.redirect,
     meta: { ...row.meta },
-    orderNum: row.orderNum,
+    order: row.order,
     type: row.type,
     status: row.status,
   }
@@ -159,7 +159,7 @@ const resetForm = () => {
       affix: false,
       roles: [],
     },
-    orderNum: 0,
+    order: 0,
     type: 'menu',
     status: 1,
   }
@@ -194,7 +194,7 @@ onMounted(() => {
       <el-table-column prop="name" label="路由名称" min-width="120" />
       <el-table-column prop="path" label="路由路径" min-width="120" />
       <el-table-column prop="component" label="组件路径" min-width="180" />
-      <el-table-column prop="orderNum" label="排序" width="80" align="center" />
+      <el-table-column prop="order" label="排序" width="80" align="center" />
       <el-table-column prop="type" label="类型" width="100" align="center">
         <template #default="{ row }">
           <el-tag v-if="row.type === 'dir'" type="success">目录</el-tag>
@@ -263,7 +263,7 @@ onMounted(() => {
         </el-form-item>
 
         <el-form-item label="排序号" prop="orderNum">
-          <el-input-number v-model="form.orderNum" :min="0" :max="999" />
+          <el-input-number v-model="form.order" :min="0" :max="999" />
         </el-form-item>
 
         <el-form-item v-if="form.type !== 'button'" label="状态">

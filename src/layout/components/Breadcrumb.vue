@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { useRoute, useRouter, RouteLocationMatched } from 'vue-router'
+import { useRoute, useRouter, type RouteLocationMatched } from 'vue-router'
 import { compile } from 'path-to-regexp'
 
 const route = useRoute()

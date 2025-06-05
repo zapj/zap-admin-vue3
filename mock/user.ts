@@ -11,7 +11,7 @@ const users = [
     nickname: '管理员',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     email: 'admin@example.com',
-    roles: 'admin',
+    roles: ['admin'],
     permissions: ['*'],
   },
   {
@@ -21,7 +21,7 @@ const users = [
     nickname: '编辑',
     avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
     email: 'editor@example.com',
-    roles: 'editor',
+    roles: ['editor'],
     permissions: ['dashboard', 'content:read', 'content:write'],
   },
   {
@@ -31,7 +31,7 @@ const users = [
     nickname: '普通用户',
     avatar: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
     email: 'user@example.com',
-    roles: 'user',
+    roles: ['user'],
     permissions: ['dashboard', 'content:read'],
   },
 ]

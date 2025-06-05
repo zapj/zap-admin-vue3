@@ -48,5 +48,9 @@ export default defineConfig(({ mode }) => {
           }
         : undefined,
     },
+    define: {
+      "import.meta.env.VITE_BUILD_TIME": JSON.stringify(new Date().toISOString()),
+    },
+   
   }
 })

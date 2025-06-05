@@ -31,7 +31,7 @@ const updateUserInfo = async () => {
     await updateUserProfile(userForm.value)
     ElMessage.success('个人信息更新成功')
     // 重新获取用户信息
-    await userStore.getInfo()
+    await userStore.getInfoAction()
   } catch (error) {
     console.error('更新个人信息失败:', error)
   }

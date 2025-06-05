@@ -30,7 +30,7 @@ const getBreadcrumb = () => {
       {
         path: '/dashboard',
         meta: { title: '首页' },
-      } as RouteLocationMatched,
+      }  as unknown as RouteLocationMatched,
     ].concat(matched)
   }
   breadcrumbs.value = matched

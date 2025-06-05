@@ -51,7 +51,7 @@ export function deleteMenu(id: string) {
  * @param status 状态(0: 禁用, 1: 启用)
  */
 export function updateMenuStatus(id: string, status: 0 | 1) {
-  return http.put(`/system/menus/${id}/status`, { status })
+  return http.put(`/system/menus/status`, { status,id: id })
 }
 
 /**

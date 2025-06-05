@@ -20,6 +20,7 @@ export const useUserStore = defineStore('user', () => {
     permissions: permissions.value,
   }))
 
+
   // 登录
   async function loginAction(userInfo: { username: string; password: string }) {
     try {
@@ -91,4 +92,4 @@ export const useUserStore = defineStore('user', () => {
     logout,
     resetToken,
   }
-})
+},{ persist: true }) // 使用 Pinia 的持久化插件

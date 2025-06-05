@@ -135,7 +135,6 @@ router.beforeEach(async (to, from, next) => {
         try {
           // 获取用户信息
           await userStore.getInfoAction()
-          console.log('用户信息:', userStore.userInfo)
 
           // 根据角色生成可访问路由
           await permissionStore.generateRoutes(userStore.roles)

@@ -36,12 +36,15 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
-      host: true,
+      host: "0.0.0.0",
       port: 5173,
+      allowedHosts: [
+        '.cn'
+      ],
       proxy: useProxy
         ? {
             '/api': {
-              target: 'http://localhost:3000',
+              target: 'https://localhost:2600',
               changeOrigin: true,
               rewrite: (path) => path.replace(/^\/api/, ''),
             },

@@ -133,12 +133,12 @@ const tableData = ref([
   padding: 20px;
 }
 
-.stat-card {
+.stat-card ::v-deep(.el-card__body){
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
-  height: 108px;
+  height: 100px;
 }
+
 
 .stat-icon {
   width: 80px;
@@ -158,6 +158,7 @@ const tableData = ref([
 .stat-info {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .stat-value {

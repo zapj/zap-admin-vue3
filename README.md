@@ -1,6 +1,30 @@
 # zap-admin-vue3
 
-This template should help get you started developing with Vue 3 in Vite.
+ZapAdmin 后台管理系统前端项目，基于 Vue3 + Vite + Vue-Router + Vuex + Element-Plus 开发。
+
+# 项目结构
+    ├── public
+    │   └── favicon.ico
+    ├── src
+    │   ├── api
+    │   │   └── index.ts
+    │   ├── assets
+    │   │   └── logo.png
+    │   ├── components
+    │   │   └── HelloWorld.vue
+    │   ├── router
+    │   │   └── index.ts
+    │   ├── store
+    │   │   └── index.ts
+    │   ├── App.vue
+    │   ├── main.ts
+    │   └── shims.d.ts
+    ├── index.html
+    ├── package.json
+    └── vite.config.ts      
+
+# 项目截图
+![项目截图](zap-admin-vue3-preview.png)
 
 ## Recommended IDE Setup
 
@@ -14,13 +38,13 @@ TypeScript cannot handle type information for `.vue` imports by default, so we r
 
 See [Vite Configuration Reference](https://vite.dev/config/).
 
-## Project Setup
+## 项目安装
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Compile and Hot-Reload for Development (vite)
 
 ```sh
 npm run dev

@@ -14,32 +14,7 @@
       </el-col>
     </el-row>
 
-    <el-row :gutter="20" class="chart-row">
-      <el-col :span="12">
-        <el-card shadow="hover" class="chart-card">
-          <template #header>
-            <div class="card-header">
-              <span>访问量统计</span>
-            </div>
-          </template>
-          <div class="chart-placeholder">
-            <el-empty description="图表区域 - 访问量统计" />
-          </div>
-        </el-card>
-      </el-col>
-      <el-col :span="12">
-        <el-card shadow="hover" class="chart-card">
-          <template #header>
-            <div class="card-header">
-              <span>销售额趋势</span>
-            </div>
-          </template>
-          <div class="chart-placeholder">
-            <el-empty description="图表区域 - 销售额趋势" />
-          </div>
-        </el-card>
-      </el-col>
-    </el-row>
+    <ChartComponent />
 
     <el-card shadow="hover" class="table-card">
       <template #header>
@@ -64,8 +39,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { User, ShoppingCart, Goods, Money } from '@element-plus/icons-vue'
+import {  ref,defineAsyncComponent } from 'vue'
+const ChartComponent = defineAsyncComponent(() => import('./chart.vue'))
 
 const statCards = ref([
   {

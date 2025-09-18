@@ -14,6 +14,7 @@ function responseWrapper(data: any, code = 200, message = 'success') {
 // 导出所有 mock 配置
 export default [
   ...userMock,
+  ...menuMock,
   // 这里可以添加更多的 mock 接口
   {
     url: '/api/test',

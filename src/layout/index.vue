@@ -30,24 +30,23 @@
             </keep-alive>
           </transition>
         </router-view>
-        <Footer />
+        <AsyncFooter />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, onBeforeUnmount } from 'vue'
+import { computed, ref, watch, onBeforeUnmount,defineAsyncComponent } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAppStore } from '@/stores/app'
 import Navbar from './components/Navbar.vue'
 import Sidebar from './components/Sidebar.vue'
 import TagsView from './components/TagsView.vue'
-import Footer from './components/Footer.vue'
 
 const route = useRoute()
 const appStore = useAppStore()
-
+const AsyncFooter = defineAsyncComponent(() => import('./components/Footer.vue'))
 // 从store获取状态
 const sidebar = computed(() => ({
   opened: appStore.sidebar.opened,

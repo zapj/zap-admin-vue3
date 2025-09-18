@@ -23,8 +23,8 @@ ZapAdmin 后台管理系统前端项目，基于 Vue3 + Vite + Vue-Router + Vuex
     ├── package.json
     └── vite.config.ts      
 
-# 项目截图
-![项目截图](zap-admin-vue3-preview.png)
+# 项目预览
+![项目预览](zap-admin-vue3-snap.png)
 
 ## Recommended IDE Setup
 

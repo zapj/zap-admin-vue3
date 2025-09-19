@@ -115,7 +115,7 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (file) => {
               >
                 <img v-if="userInfo.avatar" :src="userInfo.avatar" class="avatar" alt="Avatar" />
                 <el-icon v-else class="avatar-uploader-icon">
-                  <Plus />
+                  <icon-ep-plus />
                 </el-icon>
               </el-upload>
             </el-form-item>

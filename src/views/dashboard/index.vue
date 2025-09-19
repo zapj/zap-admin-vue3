@@ -4,7 +4,7 @@
       <el-col :span="6" v-for="(item, index) in statCards" :key="index">
         <el-card shadow="hover" class="stat-card">
           <div class="stat-icon" :style="{ backgroundColor: item.color }">
-            <el-icon><component :is="item.icon" /></el-icon>
+            <Icon :icon="item.icon" />
           </div>
           <div class="stat-info">
             <div class="stat-value">{{ item.value }}</div>
@@ -36,35 +36,38 @@
       </el-table>
     </el-card>
   </div>
+  
+  
+  
 </template>
 
 <script setup lang="ts">
 import {  ref,defineAsyncComponent } from 'vue'
 const ChartComponent = defineAsyncComponent(() => import('./chart.vue'))
-
+import { Icon } from '@iconify/vue'
 const statCards = ref([
   {
     title: '用户总数',
     value: '1,234',
-    icon: 'User',
+    icon: 'mdi:user',
     color: '#40c9c6',
   },
   {
     title: '订单总数',
     value: '3,456',
-    icon: 'ShoppingCart',
+    icon: 'mdi:shopping-cart',
     color: '#36a3f7',
   },
   {
     title: '商品总数',
     value: '5,678',
-    icon: 'Goods',
+    icon: 'ep:goods',
     color: '#f4516c',
   },
   {
     title: '销售总额',
     value: '¥98,765',
-    icon: 'Money',
+    icon: 'ep:money',
     color: '#34bfa3',
   },
 ])

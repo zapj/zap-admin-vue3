@@ -7,6 +7,8 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { viteMockServe } from 'vite-plugin-mock'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
@@ -19,16 +21,29 @@ export default defineConfig(({ mode }) => {
       vueDevTools(),
       UnoCSS(),
       AutoImport({
-        resolvers: [ElementPlusResolver()],
+        resolvers: [
+          ElementPlusResolver(),
+        ],
       }),
       Components({
-        resolvers: [ElementPlusResolver()],
+        resolvers: [
+          ElementPlusResolver(),
+          IconsResolver({
+            prefix: "icon", 
+            enabledCollections: ['ep','mdi'],
+          }),
+        ],
       }),
       viteMockServe({
         mockPath: 'mock',
         enable: mode === 'development',
         logger: true,
       }),
+      Icons({
+        autoInstall: true,
+        compiler: 'vue3',
+      }),
+    
     ],
     resolve: {
       alias: {

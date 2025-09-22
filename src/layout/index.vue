@@ -9,6 +9,13 @@
       <Sidebar />
     </div>
 
+    <!-- 遮罩层 -->
+    <div
+      v-if="device === 'mobile' && sidebar.opened"
+      class="sidebar-mask"
+      @click="appStore.closeSidebar(false)"
+    ></div>
+
     <!-- 主要内容区 -->
     <div class="main-container" :class="{ 'hide-sidebar': !sidebar.opened || sidebar.hide }">
       <!-- 顶部导航栏 -->
@@ -159,6 +166,17 @@ watchDeviceWidth()
   position: relative;
   overflow: hidden;
   background-color: #f0f2f5;
+}
+
+/* 遮罩层 */
+.sidebar-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
 }
 
 /* 移动端适配 */

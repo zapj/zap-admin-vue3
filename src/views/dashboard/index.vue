@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
     <el-row :gutter="20">
-      <el-col :span="6" v-for="(item, index) in statCards" :key="index">
+      <el-col :sm="6" v-for="(item, index) in statCards" :key="index">
         <el-card shadow="hover" class="stat-card">
           <div class="stat-icon" :style="{ backgroundColor: item.color }">
             <Icon :icon="item.icon" />

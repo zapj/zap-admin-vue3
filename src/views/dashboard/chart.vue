@@ -1,6 +1,6 @@
 <template>
     <el-row :gutter="20" class="chart-row">
-      <el-col :span="12">
+      <el-col :sm="12">
         <el-card shadow="hover" class="chart-card">
           <template #header>
             <div class="card-header">
@@ -12,7 +12,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="12">
+      <el-col :sm="12">
         <el-card shadow="hover" class="chart-card">
           <template #header>
             <div class="card-header">
